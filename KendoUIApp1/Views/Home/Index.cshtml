@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "DHS Flood Apex Prototype";
+}
+
+@model System.Security.Claims.ClaimsPrincipal
+
+@section featured {
+    <div class="featured">
+        <div class="content-wrapper">
+            <div class="container">
+                <p id="rcorners6">
+                    <img alt="" src="~/Content/images2.png" style="height: 120px; width: 839px" />
+                </p>
+            </div>
+        </div>
+        <!--
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title.</h1>
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+            <p>
+
+            </p>
+        </div>
+            -->
+    </div>
+}
+
+@using Kendo.Mvc.UI
+
+<div class="demo-section k-content">
+    <h4>Currently Avaliable Data Products</h4>
+    @(
+                    Html.Kendo().TreeView()
+                    .Name("treeview-left")
+                    .Animation(true)
+            .Events(events => events
+            .Change("onChange"))
+            .BindTo((IEnumerable<TreeViewItemModel>)ViewBag.inlineDefault)
+    )
+</div>
+
+<script>
+
+    function copyToClipboard(text) {
+        window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+    }
+
+    function onChange(e) {
+        var treeview = $("#treeview-left").data("kendoTreeView");
+        var dataItem = treeview.dataItem(e.sender.select());
+        var imageUrl = dataItem.imageUrl;
+
+        console.log("Found Url : " + dataItem.url);
+
+        if (imageUrl.indexOf("app.gif") != -1) {
+            window.open(dataItem.url);
+        } else if (imageUrl.indexOf("doc.gif") != -1) {
+            window.open(dataItem.url);
+        } else if (imageUrl.indexOf("gis.gif") != -1) {
+            copyToClipboard(dataItem.url);
+        } else if (imageUrl.indexOf("folder.png") != -1) {
+            if (dataItem.expanded) {
+                treeview.collapse(e.sender.select());
+            } else {
+                treeview.expand(e.sender.select());
+            }
+        }
+
+        /*
+        if ((imageUrl.indexOf("app.gif") != -1) || (imageUrl.indexOf("doc.gif") != -1)) {
+            window.open(dataItem.url);
+        } else {
+            if (imageUrl.indexOf("folder.png") =! -1) {
+                treeview.expand(e.sender.select());
+            } else {
+                copyToClipboard(dataItem.url);
+            }
+        }
+        */
+    }
+
+    $(document).ready(function () {
+        $(".k-item .k-link").click(function () {
+            var treeview = $("#treeview-left").data("kendoTreeView");
+            console.log("looking for : " + this.text);
+            var node = treeview.findByText(this.text);
+            treeview.select(node);
+            return false;
+        });
+    });
+
+</script>
