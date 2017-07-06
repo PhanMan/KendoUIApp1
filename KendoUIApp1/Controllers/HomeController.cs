@@ -11,7 +11,7 @@ namespace KendoUIApp1.Controllers
         private String rootPath = "DHSFloodApexProgramPrototype";
         private String pathSeperator = "/";
 
-       [Authorize]
+        [Authorize]
         public ActionResult Index()
         {
             ViewBag.Message = "Welcome to ASP.NET MVC!";
@@ -38,71 +38,71 @@ namespace KendoUIApp1.Controllers
             return View();
         }
 
-       /*
-        private IEnumerable<DataItem> GetInlineData()
-        {
-            List<DataItem> inline = new List<DataItem>
-                {
-                    new DataItem
-                    {
-                        DataName = "Storage",
-                        DataUrl = "",
-                        DataType = "FOLDER",
-                        DataIcon = "~/Content/folder.png",
+        /*
+         private IEnumerable<DataItem> GetInlineData()
+         {
+             List<DataItem> inline = new List<DataItem>
+                 {
+                     new DataItem
+                     {
+                         DataName = "Storage",
+                         DataUrl = "",
+                         DataType = "FOLDER",
+                         DataIcon = "~/Content/folder.png",
 
-                        SubData = new List<DataItem>
-                        {
-                            new DataItem()
-                            {
-                                DataName = "Wall Shelving",
-                                DataIcon = "~/Content/wave.png",
-                                DataType = "APP"
+                         SubData = new List<DataItem>
+                         {
+                             new DataItem()
+                             {
+                                 DataName = "Wall Shelving",
+                                 DataIcon = "~/Content/wave.png",
+                                 DataType = "APP"
+                             },
+                             new DataItem
+                             {
+                                  DataName = "Floor Shelving",
+                                 DataIcon = "~/Content/wave.png",
+                                 DataType = "GIS"
+
                             },
-                            new DataItem
-                            {
-                                 DataName = "Floor Shelving",
-                                DataIcon = "~/Content/wave.png",
-                                DataType = "GIS"
-            
-                           },
-                            new DataItem
-                            {
-                                 DataName = "Kids Storag",
-                                DataIcon = "~/Content/wave.png",
-                                DataType = "DOC"
-                           }
-                        }
-                    },
-                    new DataItem
-                    {
-                        DataName = "Lights",
-                        DataUrl = "",
-                        DataType = "FOLDER",
-                        DataIcon = "~/Content/folder.png",
-                       SubData = new List<DataItem>
-                        {
-                            new DataItem()
-                            {
-                                DataName = "Ceiling",
-                                DataIcon = "~/Content/wave.png"
-                           },
-                            new DataItem
-                            {
-                                 DataName = "Table",
-                                DataIcon = "~/Content/wave.png"
-                            },
-                            new DataItem
-                            {
-                                 DataName = "Floor",
-                                DataIcon = "~/Content/wave.png"
+                             new DataItem
+                             {
+                                  DataName = "Kids Storag",
+                                 DataIcon = "~/Content/wave.png",
+                                 DataType = "DOC"
                             }
-                        }
-                    }
-                };
+                         }
+                     },
+                     new DataItem
+                     {
+                         DataName = "Lights",
+                         DataUrl = "",
+                         DataType = "FOLDER",
+                         DataIcon = "~/Content/folder.png",
+                        SubData = new List<DataItem>
+                         {
+                             new DataItem()
+                             {
+                                 DataName = "Ceiling",
+                                 DataIcon = "~/Content/wave.png"
+                            },
+                             new DataItem
+                             {
+                                  DataName = "Table",
+                                 DataIcon = "~/Content/wave.png"
+                             },
+                             new DataItem
+                             {
+                                  DataName = "Floor",
+                                 DataIcon = "~/Content/wave.png"
+                             }
+                         }
+                     }
+                 };
 
-            return inline;
-        }
-        */
+             return inline;
+         }
+         */
 
         private IEnumerable<Kendo.Mvc.UI.TreeViewItemModel> PopulateTreeView()
         {
@@ -112,7 +112,11 @@ namespace KendoUIApp1.Controllers
             List<Kendo.Mvc.UI.TreeViewItemModel> inlineDefault = new List<Kendo.Mvc.UI.TreeViewItemModel>();
 
             // Get top level items
-            List<String> topLevelStr = zkUtil.GetChildren(pathSeperator + rootPath);
+            List<String> topLevelStr = null;
+            while (topLevelStr == null)
+            {
+                topLevelStr = zkUtil.GetChildren(pathSeperator + rootPath);
+            }
 
             // Lets build a tree
             foreach (String focusArea in topLevelStr)

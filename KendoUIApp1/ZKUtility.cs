@@ -33,10 +33,26 @@ namespace KendoUIApp1
 
         public List<String> GetChildren(String path)
         {
+            List<String> retList = null;
 
-            var p = zk.GetChildren(path, false, null);
-            List<String> retList = p.OrderBy(e => e).ToList();
+            try
+            {
+                int count = 0;
 
+                while(zk.State != ZooKeeper.States.CONNECTED)
+                {
+                    System.Threading.Thread.Sleep(500);
+                    Console.WriteLine("Waiting : " + count++);
+                }
+
+                var p = zk.GetChildren(path, false, null);
+                retList = p.OrderBy(e => e).ToList();
+
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
 
             return retList;
         }
