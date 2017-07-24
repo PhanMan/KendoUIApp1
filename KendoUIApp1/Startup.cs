@@ -30,7 +30,7 @@ namespace KendoUIApp1
 
                 ClientId = "DHS-Proto",
                 ClientSecret = "352c280d-68cb-4f4c-9331-571407a768df",
-                KeycloakUrl = "http://key.purvisms.com:8080/auth",
+                KeycloakUrl = "https://key.purvisms.com:8443/auth",
                 SignInAsAuthenticationType = persistentAuthType // Not required with SetDefaultSignInAsAuthenticationType
             });
         }
